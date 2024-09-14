@@ -7,12 +7,22 @@ Como um lego, você irá utilizar peças para criar algoritmos, ou seja, para re
 
 ## Peças de uma Linguagem
 
-- Comentários
-- Declaração de variáveis (const, let)
-- Operadores (atribuição, concatenação, matemáticos, lógicos)
-- Tipos de dados (string, number, boolean)
+- Comentários //
+- Escopo e Variáveis
+    - Let: Permite alterar o valor inicial
+    - Const: Não permite alterar o valo inicial
+    - Escopo: {} outro ambiente
+- Operadores
+    - Atribuição: = 
+    - Concatenação:
+    - Matemáticos:
+    - Lógicos:
+- Tipos de dados:
+    - String (Textos): "" '' ``
+    - Number (Números): 2 1.4
 - Estrutura de dados (functions, object, array)
 - Controle de fluxo (if/else)
+
 - Estrutura de repetição (for, while)
 
 ## Fases da Resolução de um Problema
