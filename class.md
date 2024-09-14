@@ -7,23 +7,29 @@ Como um lego, você irá utilizar peças para criar algoritmos, ou seja, para re
 
 ## Peças de uma Linguagem
 
-- Comentários //
+- Comentários // Linha não compilada
 - Escopo e Variáveis
     - Let: Permite alterar o valor inicial
     - Const: Não permite alterar o valo inicial
-    - Escopo: {} outro ambiente
+    - Escopo: {} Outro ambiente
 - Operadores
-    - Atribuição: = 
-    - Concatenação:
-    - Matemáticos:
-    - Lógicos:
+    - Atribuição: = += *= -=
+    - Concatenação: +
+    - Matemáticos: + * / -
+    - Lógicos: || && != ==
 - Tipos de dados:
     - String (Textos): "" '' ``
     - Number (Números): 2 1.4
+    - Boolean (Verdade): true false
 - Estrutura de dados (functions, object, array)
-- Controle de fluxo (if/else)
-
-- Estrutura de repetição (for, while)
+    - Funtions: Uma função do algoritmo
+    - Array: Lista de diversas coisas
+- Controle de fluxo
+    - If/Else: Se verdadeiro faça isso, senão faça isso
+    - Switch Case: Caso isso, faça isso
+- Estrutura de repetição
+    - While: Enquanto verdadeiro, faça isso
+    - For: Para esse valor, essa condição verdadeira e a mudança do valor, faça isso
 
 ## Fases da Resolução de um Problema
 
