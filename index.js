@@ -1,11 +1,14 @@
-let meta = {
-    value: "Ler um livro por mês",
-    checked: false
+const start = () => {
+    while(true){
+        switch (opcao) {
+            case "cadastrar":
+                
+                break;
+        
+            default:
+                break;
+        }
+    }
 }
 
-
-let metas = [meta, {
-    value: "Outra meta",
-    checked: true
-}]
-console.log(metas[1].value)
+start();
