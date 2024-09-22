@@ -1,18 +1,45 @@
-const { select, input } = require("@inquirer/prompts")
+const { select, input, checkbox } = require("@inquirer/prompts")
 
 let metas = []
 
 const cadastrarMeta = async () => {
-    const meta = await input({message: "Digite a Meta:"})
+    const meta = await input({message: "Enter the Goal:"})
 
     if (meta.length == 0) {
-        console.log("A meta não pode ser vazia!")
+        console.log("The goal can't be empty!")
         return
     }
     metas.push({
         value: meta,
         checked: false
     })
+}
+
+const listarMetas = async () => {
+    const answers = await checkbox({
+        message: "Arrows: Change Goal\n Space Bar: Check/Uncheck\n Enter: Finish",
+        choices: [...metas],
+        instructions: false
+    })
+
+    if(answers.length == 0){
+        console.log("No goal selected")
+        return
+    }
+
+    metas.forEach(goal => {
+        goal.checked = false
+    });
+
+    answers.forEach(answer => {
+        const meta = metas.find((goal) => {
+            return goal.value == answer
+        })
+
+        meta.checked = true
+    });
+
+    console.log("The goals have been updated!")
 }
 
 const start = async () => {
@@ -22,15 +49,15 @@ const start = async () => {
             message: "Menu >",
             choices: [
                 {
-                    name: "Cadastrar Meta",
+                    name: "Insert Goal",
                     value: "cadastrar"
                 },
                 {
-                    name: "Listar Metas",
+                    name: "List Goals",
                     value: "listar"
                 },
                 {
-                    name: "Sair",
+                    name: "Exit",
                     value: "sair"
                 }
             ]
@@ -42,11 +69,11 @@ const start = async () => {
                 break;
             
             case "listar":
-                console.log("Vamos listar!");
+                await listarMetas()
                 break;
 
             case "sair":
-                console.log("Até mais!")
+                console.log("See you later!")
                 return
         }
     }
