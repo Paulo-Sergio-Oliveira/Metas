@@ -1,12 +1,14 @@
 const { select, input, checkbox } = require("@inquirer/prompts")
 
+let mensagem = "Welcome to my Application!"
+
 let metas = []
 
 const cadastrarMeta = async () => {
     const meta = await input({message: "Enter the Goal:"})
 
     if (meta.length == 0) {
-        console.log("The goal can't be empty!")
+        mensagem = "The goal can't be empty!"
         return
     }
 
@@ -15,10 +17,15 @@ const cadastrarMeta = async () => {
         checked: false
     })
 
-    console.log("Goals successfully inserted")
+    mensagem = "Goals successfully inserted"
 }
 
 const listarMetas = async () => {
+    if(metas.length == 0){
+        mensagem = "No goals registered"
+        return
+    }
+
     const answers = await checkbox({
         message: "Arrows: Change Goal\n Space Bar: Check/Uncheck\n Enter: Finish",
         choices: [...metas],
@@ -30,7 +37,7 @@ const listarMetas = async () => {
     });
 
     if(answers.length == 0){
-        console.log("No goal selected")
+        mensagem = "No goal selected"
         return
     }
 
@@ -42,7 +49,7 @@ const listarMetas = async () => {
         meta.checked = true
     });
 
-    console.log("The goals have been updated!")
+    mensagem = "The goals have been updated!"
 }
 
 const metasRealizadas = async () => {
@@ -51,7 +58,7 @@ const metasRealizadas = async () => {
     })
 
     if(realizadas.length == 0){
-        console.log("No realized goals :(")
+        mensagem = "No realized goals :("
         return
     }
     
@@ -67,7 +74,7 @@ const metasAbertas = async () => {
     })
 
     if(abertas.length == 0){
-        console.log("No open goals :)")
+        mensagem = "No open goals :)"
         return
     }
     
@@ -89,7 +96,7 @@ const deletarMetas = async () => {
     })
 
     if(deletar.length == 0){
-        console.log("Nothing to delete")
+        mensagem = "Nothing to delete"
         return
     }
 
@@ -98,12 +105,23 @@ const deletarMetas = async () => {
             return meta.value != item
         })
 
-        console.log("Goals successfully deleted")
+        mensagem = "Goals successfully deleted"
     })
+}
+
+const mostrarMensagem = () => {
+    console.clear()
+
+    if(mensagem != ""){
+        console.log(mensagem + "\n");
+        mensagem = ""
+    }
 }
 
 const start = async () => {
     while(true){
+
+        mostrarMensagem()
 
         const option = await select({
             message: "Menu >",
@@ -138,23 +156,23 @@ const start = async () => {
         switch (option) {
             case "cadastrar":
                 await cadastrarMeta()
-                break;
+                break
             
             case "listar":
                 await listarMetas()
-                break;
+                break
 
             case "realizadas":
                 await metasRealizadas()
-                break;
+                break
 
             case "abertas":
                 await metasAbertas()
-                break;
+                break
 
             case "deletar":
                 await deletarMetas()
-                break;
+                break
  
             case "sair":
                 console.log("See you later!")
