@@ -9,10 +9,13 @@ const cadastrarMeta = async () => {
         console.log("The goal can't be empty!")
         return
     }
+
     metas.push({
         value: meta,
         checked: false
     })
+
+    console.log("Goals successfully inserted")
 }
 
 const listarMetas = async () => {
@@ -48,13 +51,54 @@ const metasRealizadas = async () => {
     })
 
     if(realizadas.length == 0){
-        console.log("No goals realized :(")
+        console.log("No realized goals :(")
         return
     }
     
     await select({
-        message: "Realized Goals",
+        message: "Total Realized Goals - " + realizadas.length,
         choices: [...realizadas]
+    })
+}
+
+const metasAbertas = async () => {
+    const abertas = metas.filter((meta) => {
+        return !meta.checked
+    })
+
+    if(abertas.length == 0){
+        console.log("No open goals :)")
+        return
+    }
+    
+    await select({
+        message: "Total Open Goals - " + abertas.length,
+        choices: [...abertas]
+    })
+}
+
+const deletarMetas = async () => {
+    const dMetas = metas.map((meta) =>{
+        return {value: meta.value, checked: false}
+    })
+
+    const deletar = await checkbox({
+        message: "Arrows: Change Goal\n Space Bar: Check/Uncheck\n Enter: Finish",
+        choices: [...dMetas],
+        instructions: false
+    })
+
+    if(deletar.length == 0){
+        console.log("Nothing to delete")
+        return
+    }
+
+    deletar.forEach((item) =>{
+        metas = metas.filter((meta) => {
+            return meta.value != item
+        })
+
+        console.log("Goals successfully deleted")
     })
 }
 
@@ -73,8 +117,16 @@ const start = async () => {
                     value: "listar"
                 },
                 {
-                    name: "Realized Goals",
+                    name: "Realized Goals >",
                     value: "realizadas"
+                },
+                {
+                    name: "Open Goals >",
+                    value: "abertas"
+                },
+                {
+                    name: "Delete Goals",
+                    value: "deletar"
                 },
                 {
                     name: "Exit",
@@ -96,6 +148,14 @@ const start = async () => {
                 await metasRealizadas()
                 break;
 
+            case "abertas":
+                await metasAbertas()
+                break;
+
+            case "deletar":
+                await deletarMetas()
+                break;
+ 
             case "sair":
                 console.log("See you later!")
                 return
