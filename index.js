@@ -1,9 +1,23 @@
 const { select, input, checkbox } = require("@inquirer/prompts")
+const fs = require("fs").promises
 
 let mensagem = "Welcome to my Application!"
 
-let metas = []
+let metas
 
+const loadMetas = async () => {
+    try {
+        const dados = await fs.readFile("metas.json", "utf-8")
+        metas = JSON.parse(dados)
+    } catch(erro) {
+        metas = []
+    }
+}
+
+
+const saveMetas = async () => {
+    await fs.writeFile("metas.json", JSON.stringify(metas, null, 2))
+}
 const cadastrarMeta = async () => {
     const meta = await input({message: "Enter the Goal:"})
 
@@ -119,9 +133,11 @@ const mostrarMensagem = () => {
 }
 
 const start = async () => {
-    while(true){
+    await loadMetas() 
 
+    while(true){
         mostrarMensagem()
+        await saveMetas()
 
         const option = await select({
             message: "Menu >",
@@ -173,7 +189,7 @@ const start = async () => {
             case "deletar":
                 await deletarMetas()
                 break
- 
+                
             case "sair":
                 console.log("See you later!")
                 return
