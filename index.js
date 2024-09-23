@@ -22,14 +22,14 @@ const listarMetas = async () => {
         instructions: false
     })
 
+    metas.forEach(goal => {
+        goal.checked = false
+    });
+
     if(answers.length == 0){
         console.log("No goal selected")
         return
     }
-
-    metas.forEach(goal => {
-        goal.checked = false
-    });
 
     answers.forEach(answer => {
         const meta = metas.find((goal) => {
@@ -40,6 +40,22 @@ const listarMetas = async () => {
     });
 
     console.log("The goals have been updated!")
+}
+
+const metasRealizadas = async () => {
+    const realizadas = metas.filter((meta) => {
+        return meta.checked
+    })
+
+    if(realizadas.length == 0){
+        console.log("No goals realized :(")
+        return
+    }
+    
+    await select({
+        message: "Realized Goals",
+        choices: [...realizadas]
+    })
 }
 
 const start = async () => {
@@ -57,6 +73,10 @@ const start = async () => {
                     value: "listar"
                 },
                 {
+                    name: "Realized Goals",
+                    value: "realizadas"
+                },
+                {
                     name: "Exit",
                     value: "sair"
                 }
@@ -70,6 +90,10 @@ const start = async () => {
             
             case "listar":
                 await listarMetas()
+                break;
+
+            case "realizadas":
+                await metasRealizadas()
                 break;
 
             case "sair":
